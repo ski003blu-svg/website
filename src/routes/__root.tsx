@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useMatches,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -76,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -99,20 +100,25 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const matches = useMatches();
+  // The luxury homepage manages its own nav, footer, and ambient scene
+  const isHomepage = matches.some((m) => m.routeId === "/");
+
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Persistent WebGL ambient layer behind all pages */}
-      <div className="fixed inset-0 -z-10 pointer-events-none opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_75%)]">
-        <AmbientScene3D className="absolute inset-0" />
-      </div>
+      {!isHomepage && (
+        <div className="fixed inset-0 -z-10 pointer-events-none opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_75%)]">
+          <AmbientScene3D className="absolute inset-0" />
+        </div>
+      )}
       <div className="min-h-screen flex flex-col relative">
-        <Navbar />
+        {!isHomepage && <Navbar />}
         <main className="flex-1">
           <Outlet />
         </main>
-        <Footer />
+        {!isHomepage && <Footer />}
       </div>
-      <BackToTop />
+      {!isHomepage && <BackToTop />}
       <Toaster position="bottom-right" />
     </QueryClientProvider>
   );

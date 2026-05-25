@@ -1,0 +1,189 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-dark: var(--surface-dark);
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: hsl(210 20% 98%);
+  --foreground: hsl(215 28% 12%);
+  --surface: hsl(0 0% 100%);
+  --surface-dark: hsl(220 15% 6%);
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(215 28% 12%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(215 28% 12%);
+
+  --primary: hsl(217 91% 55%);
+  --primary-foreground: hsl(0 0% 100%);
+  --primary-glow: hsl(217 91% 70%);
+
+  --secondary: hsl(215 25% 96%);
+  --secondary-foreground: hsl(215 28% 12%);
+
+  --muted: hsl(215 20% 95%);
+  --muted-foreground: hsl(215 15% 45%);
+
+  --accent: hsl(217 91% 95%);
+  --accent-foreground: hsl(217 91% 25%);
+
+  --destructive: hsl(0 72% 50%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(215 20% 90%);
+  --input: hsl(215 20% 90%);
+  --ring: hsl(217 91% 55%);
+
+  --gradient-hero: radial-gradient(at 0% 0%, hsl(217 91% 90% / 0.5) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsl(217 91% 80% / 0.35) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsl(210 40% 95% / 0.6) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsl(217 91% 92% / 0.4) 0px, transparent 50%);
+
+  --shadow-elegant: 0 10px 30px -10px hsl(217 91% 55% / 0.18);
+  --shadow-soft: 0 4px 20px -4px hsl(215 28% 12% / 0.08);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: hsl(217 91% 55% / 0.2);
+  }
+}
+
+@utility mesh-gradient {
+  background-image: var(--gradient-hero);
+}
+
+@utility glass {
+  background-color: hsl(0 0% 100% / 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid hsl(0 0% 100% / 0.5);
+}
+
+@utility glass-dark {
+  background-color: hsl(220 15% 8% / 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid hsl(0 0% 100% / 0.08);
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(0,-24px,0) scale(1.04); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes grid-pan {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes ping-soft {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@keyframes data-flow {
+  0% { stroke-dashoffset: 200; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.animate-reveal { animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-reveal-delay-1 { animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.animate-reveal-delay-2 { animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+.animate-reveal-delay-3 { animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+.animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-ping-soft { animation: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.animate-spin-slow { animation: spin-slow 40s linear infinite; }
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, hsl(217 91% 55% / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(217 91% 55% / 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-pan 20s linear infinite;
+}
+
+@utility grid-bg-dark {
+  background-image:
+    linear-gradient(to right, hsl(217 91% 70% / 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(217 91% 70% / 0.10) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-pan 20s linear infinite;
+}
+
+@utility animated-gradient-text {
+  background: linear-gradient(90deg, hsl(217 91% 55%), hsl(280 80% 60%), hsl(217 91% 55%));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 4s linear infinite;
+}
